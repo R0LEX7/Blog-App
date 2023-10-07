@@ -126,3 +126,7 @@ export class Service {
     return this.storage.getFilePreview(config.appwriteBucketId , fileId);
   }
 }
+
+const appwriteService = new Service();
+
+export default appwriteService;
