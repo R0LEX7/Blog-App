@@ -11,7 +11,7 @@ const Button = ({
   return (
     <button
       {...props}
-      className="btn btn-secondary bg-transparent border border-stone-500 input-bordered --tw-border-opacity: 0.2  text-white"
+      className= {`btn btn-secondary bg-transparent border border-stone-500 input-bordered --tw-border-opacity: 0.2  text-white ${className}`}
     >
       {text}
     </button>

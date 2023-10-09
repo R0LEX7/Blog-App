@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { FaMastodon } from "react-icons/fa";
 
 import { Link, useNavigate } from "react-router-dom";
 import { login as authLogin } from "../../redux/authSlice";
 import authService from "../../../Appwrite/auth";
-import {Button , Input} from "../index";
+import { Button, Input } from "../index";
 import { useDispatch } from "react-redux";
 
 const Login = () => {
@@ -19,26 +20,29 @@ const Login = () => {
       const session = await authService.login(data);
       if (session) {
         const userData = await authService.getCurrentUser();
-        if (userData) dispatch(authLogin(userData));
-        navigate("/");
+        if (userData) {
+          dispatch(authLogin(userData));
+          navigate("/");
+        }
       }
     } catch (error) {
       setError(error.message);
+      console.log(error.message);
     }
   };
 
   return (
-    <div className="relative flex flex-col justify-center h-screen overflow-hidden">
-      <div className="w-full p-6 m-auto bg-primary rounded-md shadow-md lg:max-w-lg">
-        <h1 className="text-3xl font-semibold text-center text-purple-700">
-          DaisyUI
+    <div className="relative flex px-4 flex-col justify-center items-center  h-screen overflow-hidden">
+      <div className="w-full p-6 m-auto bg-primary rounded-md border border-gray-400 grid place-content-center shadow-md lg:max-w-lg">
+        <h1 className="text-3xl font-semibold text-center text-secondary flex justify-center gap-1 items-center">
+          <FaMastodon /> Medium
         </h1>
-        <p className="capitalize text-base text-center mt-2 ">
+        <p className=" text-base text-center mt-2 ">
           {" "}
-          don &apos; t have an account ? &nbsp
+          Don&apos; t have an account ?
           <Link
             to="/signup"
-            className="font-medium  text-primary , transition-all duration-200 hover:underline"
+            className="font-medium  text-secondary , transition-all duration-200 hover:underline"
           >
             {" "}
             Sign Up

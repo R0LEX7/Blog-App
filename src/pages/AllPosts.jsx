@@ -1,22 +1,19 @@
 import {useState , useEffect} from 'react'
 import appwriteService from '../../Appwrite/database';
 import {Container, PostCard} from "../components/index"
+import { useSelector } from 'react-redux';
 const AllPosts = () => {
 
-    const [posts, setPosts] = useState([]);
+    
 
-    useEffect(() => {
-        appwriteService.getPosts([]).then((posts) => {
-            if(posts) setPosts(posts.documents);
-        }).catch((error) => console.log(error.message))
-    } , [])
+    const posts = useSelector(state => state.posts.posts);
 
   return (
-    <div className='w-full py-8'>
+    <div className='w-full my-16'>
         <Container>
-            <div className='flex flex-wrap'>
+            <div className='flex flex-wrap justify-center items-center  w-full lg:gap-32 md:gap-32 gap-8'>
                 {posts && posts.map((post) => (
-                    <div  key = {post.$id} className='p-2 w-1/4'>
+                    <div  key = {post.$id} className='w-[300px] flex  justify-center items-center '>
 
                         <PostCard {...post}/>
                     </div>

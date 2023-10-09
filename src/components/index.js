@@ -11,6 +11,8 @@ import PostForm from "./PostForm/PostForm";
 import Login from "./Authentication/Login";
 import SignUp from "./Authentication/SignUp";
 import AuthLayout from "./Authentication/AuthLayout";
+import PostCarousel from "./Carousel/PostCarousel";
+import Loader from "./Loader/Loader";
 
 export {
   Header,
@@ -23,5 +25,9 @@ export {
   PostCard,
   RTE,
   PostForm,
-  Login , SignUp , AuthLayout
+  Login,
+  SignUp,
+  AuthLayout,
+  PostCarousel,
+  Loader,
 };

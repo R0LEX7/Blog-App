@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import {FaMastodon} from "react-icons/fa"
+
 
 import { Link, useNavigate } from "react-router-dom";
 import { login as authLogin } from "../../redux/authSlice";
@@ -29,17 +31,17 @@ const SignUp = () => {
   };
 
   return (
-    <div className="relative flex flex-col justify-center h-screen overflow-hidden">
-      <div className="w-full p-6 m-auto bg-primary rounded-md shadow-md lg:max-w-lg">
-        <h1 className="text-3xl font-semibold text-center text-purple-700">
-          DaisyUI
+    <div className="relative flex flex-col justify-center h-screen overflow-hidden px-4">
+      <div className="w-full p-6 m-auto bg-primary grid  border-gray-400 place-content-center border rounded-md shadow-md lg:max-w-lg">
+        <h1 className="text-3xl font-semibold text-center text-secondary flex justify-center gap-1 items-center">
+          <FaMastodon/> Medium
         </h1>
-        <p className="capitalize text-base text-center mt-2 ">
+        <p className=" text-base text-center mt-2 ">
           {" "}
-          Already have an account ? &nbsp
+          Already have an Account ?
           <Link
             to="/login"
-            className="font-medium  text-primary , transition-all duration-200 hover:underline"
+            className="font-medium  text-secondary , transition-all duration-200 hover:underline"
           >
             {" "}
            Log in

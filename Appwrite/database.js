@@ -17,7 +17,15 @@ export class Service {
     this.storage = new Storage(this.client);
   }
 
-  async createPost({ slug, title, content, featuredImg, userId, status }) {
+  async createPost({
+    slug,
+    title,
+    content,
+    featuredImg,
+    userId,
+    status,
+    author,
+  }) {
     try {
       return await this.database.createDocument(
         config.appwriteDatabaseId,
@@ -29,6 +37,7 @@ export class Service {
           featuredImg,
           userId,
           status,
+          author,
         }
       );
     } catch (error) {
@@ -111,19 +120,18 @@ export class Service {
     }
   }
 
-  async deleteFile(fileId){
+  async deleteFile(fileId) {
     try {
-      await this.storage.deleteFile(config.appwriteBucketId , fileId);
+      await this.storage.deleteFile(config.appwriteBucketId, fileId);
       return true;
-      
     } catch (error) {
       console.log("Appwrite " + error.message);
       return false;
     }
   }
 
-  getFilePreview(fileId){
-    return this.storage.getFilePreview(config.appwriteBucketId , fileId);
+  getFilePreview(fileId) {
+    return this.storage.getFilePreview(config.appwriteBucketId, fileId);
   }
 }
 
