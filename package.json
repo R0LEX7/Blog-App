@@ -17,6 +17,7 @@
     "appwrite": "^13.0.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
+    "framer-motion": "^10.16.4",
     "html-react-parser": "^4.2.2",
     "jsconfig.json": "^2.3.3",
     "lucide-react": "^0.279.0",
