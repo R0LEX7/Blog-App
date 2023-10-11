@@ -54,7 +54,7 @@ const Header = () => {
           transition={
             isAnimation
               ? { type: "tween", duration: 2 }
-              : { type: "spring", duration: 2 }
+              : { type: "tween" }
           }
         >
           <Link to={item.path} onClick={handleOpen}>

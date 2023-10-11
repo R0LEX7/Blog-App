@@ -76,7 +76,7 @@ const Home = () => {
                     2000,
                     " <Success/>",
                     2000,
-                    " < Innovation/>",
+                    " <Innovation/>",
                     2000,
                     " <Technology/>",
                     2000,
@@ -93,7 +93,7 @@ const Home = () => {
                 />
               </p>
 
-              <p className="font-light text-gray-300 sm:text-xl dark:text-gray-300">
+              <p className="font-fira-code font-light text-gray-300 sm:text-xl dark:text-gray-300">
                 Welcome to our tech hub!{" "}
                 <span className="text-secondary">Medium</span> is your window
                 into the world of engineering and development. Dive deep into

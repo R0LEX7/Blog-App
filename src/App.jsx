@@ -34,7 +34,7 @@ function App() {
 
   return (
     !loading ? (
-      <div className='min-h-screen flex flex-wrap content-between bg-primary'>
+      <div className=' font-fira-code min-h-screen flex flex-wrap content-between bg-primary'>
         <div className='w-full block'>
           <Header />
           <main>
