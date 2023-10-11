@@ -13,9 +13,9 @@ const PostCard = ({ $id, title, featuredImg, author }) => {
     <Link to={`/post/${$id}`}>
       <motion.div
         className="card w-auto h-auto bg-base-100 shadow-xl rounded-xl border  border-gray-400 capitalize text-center"
-        animate={{ scale: 1, y: 0, x: 0 }}
-        initial={{ scale: 0, y: 1000, x: 1000 }}
-        transition={{ type: "spring", duration: 2, delay: 0.8 }}
+        animate={{ scale: 1, y: 0}}
+        initial={{ scale: 0, y: 1000}}
+        transition={{ type: "spring", duration: 2}}
         
       >
         <figure>

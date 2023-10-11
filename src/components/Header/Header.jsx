@@ -10,7 +10,6 @@ const Header = () => {
   const [open, setOpen] = useState(false);
 
   const authStatus = useSelector((state) => state.auth.status);
-  
 
   const navItems = [
     {
@@ -44,15 +43,19 @@ const Header = () => {
     setOpen(!open);
   };
 
-  const NavbarComp = ({ className }) => {
+  const NavbarComp = ({ className, isAnimation }) => {
     return navItems.map((item) =>
       item.active ? (
         <motion.li
           key={item.path}
           className={`cursor-pointer mx-10 text-lg ${className}`}
-          animate={{ scale: 1, y: 0 }}
-          initial={{ scale: 0, y: -1000 }}
-          transition={{ type: "tween", duration: 2 }}
+          initial={isAnimation ? { scale: 0, y: -1000 } : { scale: 0 }}
+          animate={isAnimation ? { scale: 1, y: 0 } : { scale: 1 }}
+          transition={
+            isAnimation
+              ? { type: "tween", duration: 2 }
+              : { type: "spring", duration: 2 }
+          }
         >
           <Link to={item.path} onClick={handleOpen}>
             {item.name}
@@ -93,7 +96,7 @@ const Header = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content  mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
-              <NavbarComp className={`my-4`} />
+              <NavbarComp className={`my-4`} isAnimation={false} />
             </ul>
           )}
         </div>
@@ -110,7 +113,7 @@ const Header = () => {
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
-          <NavbarComp />
+          <NavbarComp isAnimation={true} />
         </ul>
       </div>
       <motion.div

@@ -6,12 +6,12 @@ import { setPosts as storePosts } from "../redux/postsSlice";
 import { TypeAnimation } from "react-type-animation";
 import { motion } from "framer-motion";
 
-// import {home} from "../assets/home.avif"
-
 const Home = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
+
+  const userData = useSelector((state) => state.auth.userData);
 
   useEffect(() => {
     appwriteService
@@ -23,7 +23,7 @@ const Home = () => {
         }
       })
       .catch((err) => {
-        toast.error(err.message);
+        console.log(err.message);
       });
     setLoading(false);
   }, []);
@@ -36,7 +36,7 @@ const Home = () => {
           <div className="flex flex-wrap">
             <div className="p-2 w-full">
               <h1 className="text-2xl font-bold hover:text-gray-500">
-                Login to read posts
+                { userData ? ("No posts. Kindly Add a post ") :("Login to read posts")}
               </h1>
             </div>
           </div>
@@ -55,7 +55,7 @@ const Home = () => {
             animate={{ scale: 1, y: 0 }}
             drag
             initial={{ scale: 0, y: 1000 }}
-            transition={{ type: "spring", duration: 2}}
+            transition={{ type: "spring", duration: 2, delay: 1 }}
           >
             <div className="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
               <p className="mb-4 text-2xl lg:text-3xl  tracking-tight font-bold text-gray-900 dark:text-accent">
@@ -88,8 +88,7 @@ const Home = () => {
                     // fontSize: "2rem",
                     // display: "inline-block",
                     color: "#196EF5",
-                    
-                  }} 
+                  }}
                   repeat={Infinity}
                 />
               </p>
@@ -105,12 +104,12 @@ const Home = () => {
               </p>
             </div>
           </motion.div>
-          <motion.div className="my-10"
-          
-          animate={{ scale: 1, y: 0}}
-            drag
+          <motion.div
+            className="my-10"
+            animate={{ scale: 1, y: 0 }}
             initial={{ scale: 0, y: 1000 }}
-            transition={{ type: "tween", duration: 1}}>
+            transition={{ type: "tween", duration: 1  , delay : 1.1}}
+          >
             <PostCarousel posts={posts} />
           </motion.div>
         </div>
