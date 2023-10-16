@@ -52,9 +52,7 @@ const Header = () => {
           initial={isAnimation ? { scale: 0, y: -1000 } : { scale: 0 }}
           animate={isAnimation ? { scale: 1, y: 0 } : { scale: 1 }}
           transition={
-            isAnimation
-              ? { type: "tween", duration: 2 }
-              : { type: "tween" }
+            isAnimation ? { type: "tween", duration: 2 } : { type: "tween" , delay:0.2 }
           }
         >
           <Link to={item.path} onClick={handleOpen}>
@@ -92,12 +90,15 @@ const Header = () => {
             </svg>
           </label>
           {open && (
-            <ul
+            <motion.ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content  mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-sm  border-gray-400 border dropdown-content  mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              animate={{ scale: 1, z:1}}
+              initial={{ scale: 0, z:0}}
+              transition={{ type: "tween" }}
             >
               <NavbarComp className={`my-4`} isAnimation={false} />
-            </ul>
+            </motion.ul>
           )}
         </div>
 
