@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaMastodon } from "react-icons/fa";
+import toast, { Toaster } from "react-hot-toast";
 
 import { Link, useNavigate } from "react-router-dom";
 import { login as authLogin } from "../../redux/authSlice";
@@ -18,21 +19,24 @@ const SignUp = () => {
     setError("");
     try {
       const userData = await authService.createAccount(data);
+      toast.success("Account created successfully");
+      navigate("/");
       if (userData) {
         const userDetails = await authService.getCurrentUser();
 
         if (userDetails) {
           dispatch(authLogin(userDetails));
-          navigate("/");
         }
       }
     } catch (error) {
-      setError(error.message);
+      setError(error);
+      toast.error(error);
     }
   };
 
   return (
     <div className="relative flex flex-col justify-center h-screen overflow-hidden px-4">
+      <Toaster />
       <div className="w-full p-6 m-auto bg-primary grid  border-gray-400 place-content-center border rounded-md shadow-md lg:max-w-lg">
         <h1 className="text-3xl font-semibold text-center text-secondary flex justify-center gap-1 items-center">
           <FaMastodon /> Medium

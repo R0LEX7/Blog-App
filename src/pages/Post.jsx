@@ -5,6 +5,7 @@ import { Button, Container } from "../components";
 import parse from "html-react-parser";
 import { useSelector } from "react-redux";
 import { PostCarousel } from "../components/index";
+import toast , {Toaster} from "react-hot-toast";
 
 export default function Post() {
   const [post, setPost] = useState(null);
@@ -31,12 +32,17 @@ export default function Post() {
   }, [slug, navigate]);
 
   const deletePost = () => {
-    appwriteService.deletePost(post.$id).then((status) => {
-      if (status) {
-        appwriteService.deleteFile(post.featuredImage);
-        navigate("/");
-      }
-    });
+    try {
+      appwriteService.deletePost(post.$id).then((status) => {
+        if (status) {
+          appwriteService.deleteFile(post.featuredImage);
+          navigate("/");
+          toast.success("Post deleted successfully")
+        }
+      });
+    } catch (error) {
+      toast.error(error)
+    }
   };
 
   if (post) {

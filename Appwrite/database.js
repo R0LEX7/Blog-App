@@ -41,7 +41,7 @@ export class Service {
         }
       );
     } catch (error) {
-      console.log("Appwrite " + error.message);
+      throw "Medium " + error.message;
       return false;
     }
   }
@@ -60,7 +60,7 @@ export class Service {
         }
       );
     } catch (error) {
-      console.log("Appwrite " + error.message);
+      throw "Medium " + error.message;
       return false;
     }
   }
@@ -74,7 +74,7 @@ export class Service {
       );
       return true;
     } catch (error) {
-      console.log("Appwrite " + error.message);
+      throw "Medium " + error.message;
       return false;
     }
   }
@@ -87,7 +87,7 @@ export class Service {
         slug
       );
     } catch (error) {
-      console.log("Appwrite " + error.message);
+      throw "Medium " + error.message;
       return false;
     }
   }
@@ -100,7 +100,7 @@ export class Service {
         queries
       );
     } catch (error) {
-      console.log("Appwrite " + error.message);
+      throw "Medium " + error.message;
       return false;
     }
   }
@@ -115,7 +115,7 @@ export class Service {
         file
       );
     } catch (error) {
-      console.log("Appwrite " + error.message);
+      throw "Medium " + error.message;
       return false;
     }
   }
@@ -125,7 +125,7 @@ export class Service {
       await this.storage.deleteFile(config.appwriteBucketId, fileId);
       return true;
     } catch (error) {
-      console.log("Appwrite " + error.message);
+      throw "Medium " + error.message;
       return false;
     }
   }

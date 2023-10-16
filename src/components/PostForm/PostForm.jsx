@@ -18,67 +18,67 @@ const PostForm = ({ post }) => {
     });
   const navigate = useNavigate();
   const userData = useSelector((state) => state.auth.userData);
-  console.log(userData.name);
 
   const submit = async (data) => {
     // if post : means user wants to update the post
-    if (post) {
-      toast.loading("Updating...", {
-        icon: "😶",
-      });
-      const file = data.image[0]
-        ? appwriteService.uploadFile(data.image[0])
-        : null;
-
-      if (file) {
-        appwriteService.deleteFile(post.featuredImg);
-      }
-
-      const dbPost = await appwriteService.updatePost(post.$id, {
-        ...data,
-        featuredImg: file ? file.$id : undefined,
-      });
-
-      if (dbPost) {
-        toast.success("Updated..", {
-          icon: "😉",
+    try {
+      if (post) {
+        toast.loading("Updating...", {
+          icon: "😶",
         });
-        navigate(`/post/${dbPost.$id}`);
-      }
-    } else {
-      toast.loading("Uploading...", {
-        icon: "😶",
-      });
-      const file = await appwriteService.uploadFile(data.image[0]);
+        const file = data.image[0]
+          ? appwriteService.uploadFile(data.image[0])
+          : null;
 
-      if (file) {
-        const fileId = file.$id;
-        data.featuredImg = fileId;
+        if (file) {
+          appwriteService.deleteFile(post.featuredImg);
+        }
 
-        const dbPost = await appwriteService.createPost({
+        const dbPost = await appwriteService.updatePost(post.$id, {
           ...data,
-          userId: userData.$id,
-          author: userData?.name || "Unknown",
+          featuredImg: file ? file.$id : undefined,
         });
 
         if (dbPost) {
-          toast.success("Uploaded..", {
-            icon: "😎",
+          toast.success("Updated..", {
+            icon: "😉",
           });
           navigate(`/post/${dbPost.$id}`);
         }
+      } else {
+        
+        const file = await appwriteService.uploadFile(data.image[0]);
+
+        if (file) {
+          const fileId = file.$id;
+          data.featuredImg = fileId;
+
+          const dbPost = await appwriteService.createPost({
+            ...data,
+            userId: userData.$id,
+            author: userData?.name || "Unknown",
+          });
+
+          if (dbPost) {
+            toast.success("Uploaded..", {
+              icon: "😎",
+            });
+            navigate(`/post/${dbPost.$id}`);
+          }
+        }
       }
+    } catch (error) {
+      toast.error(error)
     }
   };
 
   const slugTransform = useCallback((value) => {
     if (value && typeof value === "string") {
       return value
-                .trim()
-                .toLowerCase()
-                .replace(/[^a-zA-Z\d\s]+/g, "-")
-                .replace(/\s/g, "-");
-
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-zA-Z\d\s]+/g, "-")
+        .replace(/\s/g, "-");
     }
     return "";
   }, []);

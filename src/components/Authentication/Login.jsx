@@ -7,6 +7,7 @@ import { login as authLogin } from "../../redux/authSlice";
 import authService from "../../../Appwrite/auth";
 import { Button, Input } from "../index";
 import { useDispatch } from "react-redux";
+import toast , {Toaster} from "react-hot-toast";
 
 const Login = () => {
   const { register, handleSubmit } = useForm();
@@ -20,19 +21,21 @@ const Login = () => {
       const session = await authService.login(data);
       if (session) {
         const userData = await authService.getCurrentUser();
+        toast.success(`Hey ${userData.name}`);
         if (userData) {
           dispatch(authLogin(userData));
           navigate("/");
         }
       }
     } catch (error) {
-      setError(error.message);
-      console.log(error.message);
+      toast.error(error);
+      console.log(error);
     }
   };
 
   return (
     <div className="relative flex px-4 flex-col justify-center items-center  h-screen overflow-hidden">
+      <Toaster/>
       <div className="w-full p-6 m-auto bg-primary rounded-md border border-gray-400 grid place-content-center shadow-md lg:max-w-lg">
         <h1 className="text-3xl font-semibold text-center text-secondary flex justify-center gap-1 items-center">
           <FaMastodon /> Medium
