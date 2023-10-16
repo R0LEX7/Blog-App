@@ -6,26 +6,27 @@ import { logout } from "../../redux/authSlice";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 
-
 const LogoutBtn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleClick = () => {
+  const handleClick = async () => {
     console.log("Log Out");
-    authService
-      .logout()
-      .then(() => {
-        toast.success("Logout successful")
-        dispatch(logout());
-        navigate("/login");
-      })
-      .catch((err) => toast.error(err));
+    toast.success("Logout successful");
+    try {
+      await authService.logout();
+      dispatch(logout());
+      navigate("/login");
+    } catch (error) {
+      toast.error(error);
+    }
   };
-  return <>
-  <Toaster/>
-  <Button text="Log out" onClick={handleClick} />
-  </>;
+  return (
+    <>
+      <Toaster />
+      <Button text="Log out" onClick={handleClick} />
+    </>
+  );
 };
 
 export default LogoutBtn;
