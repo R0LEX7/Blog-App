@@ -5,12 +5,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { setPosts as storePosts } from "../redux/postsSlice";
 import { TypeAnimation } from "react-type-animation";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const userData = useSelector((state) => state.auth.userData);
 
   useEffect(() => {
@@ -36,7 +37,7 @@ const Home = () => {
           <div className="flex flex-wrap">
             <div className="p-2 w-full">
               <h1 className="text-2xl font-bold hover:text-gray-500">
-                { userData ? ("No posts. Kindly Add a post ") :("Login to read posts")}
+                { userData ? ("No posts. Kindly Add a post ") : navigate("/login")}
               </h1>
             </div>
           </div>

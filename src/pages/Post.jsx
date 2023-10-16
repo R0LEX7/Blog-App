@@ -18,7 +18,7 @@ export default function Post() {
 
   const allPosts = useSelector((state) => state.posts.posts);
 
-  console.log(allPosts);
+
 
   const isAuthor = post && userData ? post.userId === userData.$id : false;
 
@@ -60,7 +60,6 @@ export default function Post() {
     };
     const formattedDate = date.toLocaleString("en-US", options);
     createdDate = formattedDate
-    console.log(formattedDate);
   }
 
   return post ? (
@@ -96,7 +95,7 @@ export default function Post() {
           )}
         </div>
 
-        <div className="browser-css text-xl lg:text-2xl">
+        <div className=" mt-16  browser-css text-xl lg:text-xl">
           {parse(post?.content)}
         </div>
       </Container>

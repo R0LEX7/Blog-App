@@ -36,7 +36,7 @@ function App() {
         }
       })
       .catch((err) => {
-        console.log("hyy " + err);
+        
         toast.error(`Kindly Login`, {
           icon: "🥲",
         });

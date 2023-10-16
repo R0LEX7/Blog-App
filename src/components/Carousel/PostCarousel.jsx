@@ -36,7 +36,7 @@ const PostCarousel = ({posts}) => {
         {posts && posts.map((post) => (
           <div
             key={post.$id}
-            className=" w-[300px] flex items-center justify-center p-0   mt-16 lg:mt-0 md:mt-0 gap-4"
+            className="  flex items-center justify-center p-0   mt-16 lg:mt-0 md:mt-0 "
           >
             <PostCard {...post} />
           </div>
