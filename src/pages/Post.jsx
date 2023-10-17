@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import appwriteService from "../../Appwrite/database";
-import { Button, Container } from "../components";
+import { Button, Container, Loader } from "../components";
 import parse from "html-react-parser";
 import { useSelector } from "react-redux";
 import { PostCarousel } from "../components/index";
@@ -9,6 +9,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 export default function Post() {
   const [post, setPost] = useState(null);
+  
 
   const [allposts, setAllPosts] = useState(null);
   const storePosts = useSelector((state) => state.posts.posts);
@@ -37,15 +38,14 @@ export default function Post() {
 
   const userData = useSelector((state) => state.auth.userData);
 
-  
-
   const isAuthor = post && userData ? post.userId === userData.$id : false;
 
   useEffect(() => {
     if (slug) {
       appwriteService.getPost(slug).then((post) => {
-        if (post) setPost(post);
-        else navigate("/");
+        if (post) {
+          setPost(post);
+        } else navigate("/");
       });
     } else navigate("/");
   }, [slug, navigate]);
@@ -129,5 +129,5 @@ export default function Post() {
         </div>
       )}
     </div>
-  ) : null;
+  ) : <Loader/>;
 }

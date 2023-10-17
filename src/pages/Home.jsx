@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState(null);
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -21,20 +21,20 @@ const Home = () => {
         if (posts) {
           setPosts(posts.documents);
           dispatch(storePosts(posts.documents));
+          setLoading(false);
         }
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
-        setLoading(false);
         if (userData === null) {
           navigate("/login");
         }
       });
   }, []);
 
-  if (posts?.length === 0 && posts !== null) {
+  if (posts?.length === 0) {
     return (
       <div className="w-full py-8 mt-4 text-center">
         <Container>
