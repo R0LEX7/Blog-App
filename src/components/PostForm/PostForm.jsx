@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import toast, { Toaster } from "react-hot-toast";
 
 const PostForm = ({ post }) => {
-  const [slug1, setSlug] = useState(null)
+  
   const { register, handleSubmit, control, setValue, watch, getValues } =
     useForm({
       defaultValues: {
@@ -73,6 +73,7 @@ const PostForm = ({ post }) => {
       }
     } catch (error) {
       toast.error(error)
+      console.log(error)
     }
   };
 

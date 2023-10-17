@@ -5,20 +5,18 @@ import { Button, Container } from "../components";
 import parse from "html-react-parser";
 import { useSelector } from "react-redux";
 import { PostCarousel } from "../components/index";
-import toast , {Toaster} from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function Post() {
   const [post, setPost] = useState(null);
-  
+
   const { slug } = useParams();
-  let createdDate ; 
+  let createdDate;
   const navigate = useNavigate();
 
   const userData = useSelector((state) => state.auth.userData);
 
   const allPosts = useSelector((state) => state.posts.posts);
-
-
 
   const isAuthor = post && userData ? post.userId === userData.$id : false;
 
@@ -37,11 +35,11 @@ export default function Post() {
         if (status) {
           appwriteService.deleteFile(post.featuredImage);
           navigate("/");
-          toast.success("Post deleted successfully")
+          toast.success("Post deleted successfully");
         }
       });
     } catch (error) {
-      toast.error(error)
+      toast.error(error);
     }
   };
 
@@ -59,7 +57,7 @@ export default function Post() {
       hour12: true, // Display in 12-hour format (AM/PM)
     };
     const formattedDate = date.toLocaleString("en-US", options);
-    createdDate = formattedDate
+    createdDate = formattedDate;
   }
 
   return post ? (
@@ -71,7 +69,8 @@ export default function Post() {
           </h1>
           <span className="text-2xl font-light capitalize text-gray-300 mt-4 ">
             Author: {post?.author}
-          </span><br></br>
+          </span>
+          <br></br>
           <span>Created on: {createdDate}</span>
         </div>
         <div className="w-full flex justify-center mb-4 relative  border-gray-400 border md:border-none rounded-xl p-2 gap-5">
@@ -100,12 +99,14 @@ export default function Post() {
         </div>
       </Container>
 
-      <div className="mb-10 mt-20 px-4 text-center">
-        <h3 className="text-3xl text-secondary font-semibold mb-6">
-          Some of our Blogs
-        </h3>
-        <PostCarousel posts={allPosts} />
-      </div>
+      {allPosts && (
+        <div className="mb-10 mt-20 px-4 text-center">
+          <h3 className="text-3xl text-secondary font-semibold mb-6">
+            Some of our Blogs
+          </h3>
+          <PostCarousel posts={allPosts} />
+        </div>
+      )}
     </div>
   ) : null;
 }
