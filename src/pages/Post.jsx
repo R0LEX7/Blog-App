@@ -10,7 +10,7 @@ import toast, { Toaster } from "react-hot-toast";
 export default function Post() {
   const [post, setPost] = useState(null);
   
-
+  console.log(post)
   const [allposts, setAllPosts] = useState(null);
   const storePosts = useSelector((state) => state.posts.posts);
 
@@ -96,7 +96,7 @@ export default function Post() {
         </div>
         <div className="w-full flex justify-center mb-4 relative  border-gray-400 border md:border-none rounded-xl p-2 gap-5">
           <img
-            src={appwriteService.getFilePreview(post.featuredImg)}
+            src={appwriteService.getFilePreview(post?.featuredImg)}
             alt={post?.title}
             className="rounded-xl lg:h-[70vh] md:border  border-gray-400 md:p-3 "
           />

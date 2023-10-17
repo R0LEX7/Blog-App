@@ -4,12 +4,12 @@ import { Container, PostCard } from "../components/index";
 import { useSelector } from "react-redux";
 
 const AllPosts = () => {
-  const [allpost, setAllPost] = useState(null);
+  const [allPost, setAllPost] = useState(null);
   const posts = useSelector((state) => state.posts.posts);
 
   useEffect(() => {
     if (posts.length > 0) {
-      setAllPost(posts);
+        setAllPost(posts);
     } else {
       appwriteService
         .getPosts()
@@ -29,8 +29,8 @@ const AllPosts = () => {
     <div className="w-full my-16">
       <Container>
         <div className="flex flex-wrap justify-center items-center  w-full lg:gap-32 md:gap-32 gap-8">
-          {allpost &&
-            allpost.map((post) => (
+          {allPost &&
+            allPost.map((post) => (
               <div
                 key={post.$id}
                 className="w-[300px] flex  justify-center items-center "

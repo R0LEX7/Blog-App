@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 import toast, { Toaster } from "react-hot-toast";
 
 const PostForm = ({ post }) => {
-  
   const { register, handleSubmit, control, setValue, watch, getValues } =
     useForm({
       defaultValues: {
@@ -25,17 +24,12 @@ const PostForm = ({ post }) => {
     // if post : means user wants to update the post
     try {
       if (post) {
-        toast.loading("Updating...", {
-          icon: "😶",
-        });
-
-        
         const file = data.image[0]
-          ? appwriteService.uploadFile(data.image[0])
+          ? await appwriteService.uploadFile(data.image[0])
           : null;
 
         if (file) {
-          appwriteService.deleteFile(post.featuredImg);
+          await appwriteService.deleteFile(post?.featuredImg);
         }
 
         const dbPost = await appwriteService.updatePost(post.$id, {
@@ -50,7 +44,6 @@ const PostForm = ({ post }) => {
           navigate(`/post/${dbPost.$id}`);
         }
       } else {
-        
         const file = await appwriteService.uploadFile(data.image[0]);
 
         if (file) {
@@ -72,8 +65,8 @@ const PostForm = ({ post }) => {
         }
       }
     } catch (error) {
-      toast.error(error)
-      console.log(error)
+      toast.error(error);
+      console.log(error);
     }
   };
 
@@ -83,7 +76,8 @@ const PostForm = ({ post }) => {
         .trim()
         .toLowerCase()
         .replace(/[^a-zA-Z\d\s]+/g, "")
-        .replace(/\s/g, "-").substring(0,35);
+        .replace(/\s/g, "-")
+        .substring(0, 35);
     }
     return "";
   }, []);
