@@ -10,13 +10,34 @@ import toast, { Toaster } from "react-hot-toast";
 export default function Post() {
   const [post, setPost] = useState(null);
 
+  const [allposts, setAllPosts] = useState(null);
+  const storePosts = useSelector((state) => state.posts.posts);
+
+  useEffect(() => {
+    if (storePosts.length > 0) {
+      setAllPosts(storePosts);
+    } else {
+      appwriteService
+        .getPosts()
+        .then((posts) => {
+          if (posts) {
+            setAllPosts(posts.documents);
+            console.log("service returned");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, []);
+
   const { slug } = useParams();
   let createdDate;
   const navigate = useNavigate();
 
   const userData = useSelector((state) => state.auth.userData);
 
-  const allPosts = useSelector((state) => state.posts.posts);
+  
 
   const isAuthor = post && userData ? post.userId === userData.$id : false;
 
@@ -99,12 +120,12 @@ export default function Post() {
         </div>
       </Container>
 
-      {allPosts && (
+      {allposts && (
         <div className="mb-10 mt-20 px-4 text-center">
           <h3 className="text-3xl text-secondary font-semibold mb-6">
             Some of our Blogs
           </h3>
-          <PostCarousel posts={allPosts} />
+          <PostCarousel posts={allposts} />
         </div>
       )}
     </div>
