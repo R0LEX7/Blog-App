@@ -7,11 +7,12 @@ import { useSelector } from "react-redux";
 import toast, { Toaster } from "react-hot-toast";
 
 const PostForm = ({ post }) => {
+  const [slug1, setSlug] = useState(null)
   const { register, handleSubmit, control, setValue, watch, getValues } =
     useForm({
       defaultValues: {
         title: post?.title || "",
-        slug: post?.slug || "",
+        slug: post?.$id || "",
         content: post?.content || "",
         status: post?.status || "active",
       },
@@ -19,6 +20,7 @@ const PostForm = ({ post }) => {
   const navigate = useNavigate();
   const userData = useSelector((state) => state.auth.userData);
 
+  console.log(post);
   const submit = async (data) => {
     // if post : means user wants to update the post
     try {
@@ -26,6 +28,8 @@ const PostForm = ({ post }) => {
         toast.loading("Updating...", {
           icon: "😶",
         });
+
+        
         const file = data.image[0]
           ? appwriteService.uploadFile(data.image[0])
           : null;
@@ -78,7 +82,7 @@ const PostForm = ({ post }) => {
         .trim()
         .toLowerCase()
         .replace(/[^a-zA-Z\d\s]+/g, "")
-        .replace(/\s/g, "-");
+        .replace(/\s/g, "-").substring(0,35);
     }
     return "";
   }, []);
@@ -107,6 +111,7 @@ const PostForm = ({ post }) => {
               label="Slug :"
               placeholder="Slug"
               className="mb-4"
+              // {post }
               {...register("slug", { required: true })}
               onInput={(e) => {
                 setValue("slug", slugTransform(e.currentTarget.value), {

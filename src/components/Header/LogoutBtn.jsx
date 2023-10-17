@@ -12,9 +12,9 @@ const LogoutBtn = () => {
 
   const handleClick = async () => {
     console.log("Log Out");
-    toast.success("Logout successful");
     try {
       await authService.logout();
+      toast.success("Logout successful");
       dispatch(logout());
       navigate("/login");
     } catch (error) {

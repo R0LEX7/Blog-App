@@ -24,11 +24,15 @@ const Home = () => {
         }
       })
       .catch((err) => {
-        console.log(err.message);
+        console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
+        if (userData === null) {
+          navigate("/login");
+        }
       });
-    setLoading(false);
   }, []);
-  console.log(posts);
 
   if (posts?.length === 0 && posts !== null) {
     return (
@@ -37,7 +41,7 @@ const Home = () => {
           <div className="flex flex-wrap">
             <div className="p-2 w-full">
               <h1 className="text-2xl font-bold hover:text-gray-500">
-                { userData ? ("No posts. Kindly Add a post ") : navigate("/login")}
+                {userData && "No posts. Kindly Add a post "}
               </h1>
             </div>
           </div>
@@ -109,7 +113,7 @@ const Home = () => {
             className="my-10"
             animate={{ scale: 1, y: 0 }}
             initial={{ scale: 0, y: 1000 }}
-            transition={{ type: "tween", duration: 1  , delay : 1.1}}
+            transition={{ type: "tween", duration: 1, delay: 1.1 }}
           >
             <PostCarousel posts={posts} />
           </motion.div>
